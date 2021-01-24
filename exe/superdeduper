@@ -1,5 +1,4 @@
 #!/usr/bin/env ruby
 
-require "superdeduper"
+require_relative '../lib/superdeduper'
 
-puts "hi"

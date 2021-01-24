@@ -1,8 +1,6 @@
 # Superdeduper
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/superdeduper`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+a command-line program in your chosen language which finds files which have exactly the same contents and outputs any duplicates (and their locations) to standard output.
 
 ## Installation
 
@@ -22,7 +20,9 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+    superdeduper [options]   
+    -d DIRECTORY (Path to root of photo folders that will be traversed.  The current folder is used by default.)
+
 
 ## Development
 
