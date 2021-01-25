@@ -5,4 +5,5 @@ require 'minitest/reporters'
 require 'minitest/spec'
 require 'aruba'
 require 'aruba/api'
+require 'aruba/command'
 Minitest::Reporters.use!

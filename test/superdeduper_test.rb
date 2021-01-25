@@ -12,7 +12,7 @@ class SuperdeduperTest < Minitest::Test
   end
 
   def test_if_superdeduper_runs
-    run_command("superdeduper -d dave")
+    run_command("superdeduper")
     last_command = last_command_started.command
     assert_equal(last_command, 'superdeduper', 'superdeduper Starts ')
   end

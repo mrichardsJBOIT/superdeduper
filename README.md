@@ -1,6 +1,8 @@
 # Superdeduper
 
-a command-line program in your chosen language which finds files which have exactly the same contents and outputs any duplicates (and their locations) to standard output.
+a command-line program in the Ruby language which finds files which have exactly the same contents and outputs any duplicates (and their locations) to standard output.  
+
+The Ruby language was chosen as an opportunity to learn more and further my knowledge of that ecosystem and stack. 
 
 ## Installation
 
@@ -32,7 +34,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/superdeduper.
+While bug reports and pull requests are welcome.....they're unlikely to be read or actioned as this is a programming exercise that won't be mainatined.
 
 
 ## License

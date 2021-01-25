@@ -19,8 +19,24 @@ module Superdeduper
 
           @options[:directory] = dir
         end
+        opts.on('-f FILTER', '--filter=FILTER', "File extension filter use:'*.<extension>' example:'-f *.jpeg'") do |filter|
+          if filter.start_with? == '*.' && !filter[2..-1].match?(/[[:punct:]]|\s/)
+            raise OptionParser::InvalidArgument, "FILTER [#{filter}] has non alpha numeric content"
+          end
+
+          @options[:filter] = filter
+        end
+        opts.on('-h', '--help', 'Prints this help') do
+          puts opts
+          # exit
+        end
       end
-      option_parser.parse!(args) if args
+      begin
+        option_parser.parse!(args) if args
+      rescue OptionParser::ParseError => e # Catches all child exception types and wraps in it's exception
+        raise CliParsingError.new(e.to_s, e.reason)
+      end
+
     end
 
     private
@@ -28,7 +44,17 @@ module Superdeduper
     def defaults
       @options = {}
       @options[:directory] = Dir.pwd.to_s.strip
+      @options[:filter] = '*'
     end
 
+  end
+
+  class CliParsingError < StandardError
+    attr_reader :action
+
+    def initialize(msg = 'This is a CLI parsing error', action)
+      super(msg)
+      @action = action
+    end
   end
 end

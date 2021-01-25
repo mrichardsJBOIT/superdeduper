@@ -22,7 +22,7 @@ class DuperCliParserTest < Minitest::Test
   def test_parser_provides_invalid_argument_message
     args = ['-d NO_DIRECTORY']
     parser = Superdeduper::DuperCliParser.new(args)
-    error = assert_raises(OptionParser::InvalidArgument, 'This should have raised OptionParser::InvalidArgument') do
+    error = assert_raises(Superdeduper::CliParsingError, 'This should have raised CliParsingError') do
       parser.parse
     end
     assert error.to_s.match?('NO_DIRECTORY')
@@ -31,7 +31,7 @@ class DuperCliParserTest < Minitest::Test
   def test_parser_provides_invalid_option_message
     args = ['-X=OOPS']
     parser = Superdeduper::DuperCliParser.new(args)
-    error = assert_raises(OptionParser::InvalidOption, 'This should have raised OptionParser::InvalidOption') do
+    error = assert_raises(Superdeduper::CliParsingError, 'This should have raised CliParsingError') do
       parser.parse
     end
     assert error.to_s.match?('-X')
