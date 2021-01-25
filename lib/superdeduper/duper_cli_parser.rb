@@ -15,7 +15,7 @@ module Superdeduper
       option_parser = OptionParser.new do |opts|
         opts.banner = 'List image duplicates. Usage: superdeduper [options]'
         opts.on('-d DIRECTORY', '--directory=DIRECTORY', 'Root of folders to be traversed') do |dir|
-          raise OptionParser::InvalidArgument, "DIRECTORY [#{dir}] does not exist" unless Dir.exist?(dir.strip)
+          raise OptionParser::InvalidArgument, "DIRECTORY [#{dir}] does not exist, current director [#{Dir.pwd}]" unless Dir.exist?(dir.strip)
 
           @options[:directory] = dir
         end
@@ -34,6 +34,7 @@ module Superdeduper
       begin
         option_parser.parse!(args) if args
       rescue OptionParser::ParseError => e # Catches all child exception types and wraps in it's exception
+        puts option_parser
         raise CliParsingError.new(e.to_s, e.reason)
       end
 

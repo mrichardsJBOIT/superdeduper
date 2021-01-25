@@ -90,6 +90,7 @@ PLATFORMS
 
 DEPENDENCIES
   aruba (~> 1.0, >= 1.0.4)
+  bundler
   minitest (~> 5.0)
   minitest-reporters (= 1.2.0)
   rake (~> 12.0)
