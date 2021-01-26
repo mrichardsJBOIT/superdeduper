@@ -1,6 +1,9 @@
+# frozen_string_literal: true
+
 require_relative 'superdeduper/version'
 require_relative 'superdeduper/duper_cli_parser'
 require_relative 'superdeduper/photo'
+require_relative 'superdeduper/photos_collector'
 
 module Superdeduper
 
@@ -9,30 +12,28 @@ module Superdeduper
   # outputs any duplicates (and their locations) to standard output
   class Superdeduper
     def initialize(args = nil)
-      puts args
-      @time_created = Time.now.inspect
       @cli_parser = DuperCliParser.new(args)
     end
 
     def perform
       # Get options passed in
-      # Collect all files in target
-      puts "performing at #{Time.now.inspect}"
+      # Collect all files in target folder or compressed file structure
+      # Display the duplicates
       begin
         @cli_parser.parse
       rescue CliParsingError => e
         puts e.to_s
-        Abort(e.to_s)
+        exit 1
       end
-      @file_collection = nil
+      puts "Options given: #{@cli_parser.options}"
+      collector = PhotosCollector.new(@cli_parser.option('directory'), @cli_parser.option('filter'))
+      collector.collect
+      collector.display_duplicates
     end
   end
-  puts "Something #{Time.now.inspect}"
-  puts "We received #{ARGV}"
-  puts 'very_small_black_dot_exact_copy.jpeg'
-  puts 'very_small_black_dot.jpeg'
 
-  deduper = Superdeduper.new(ARGV)
-  deduper.perform
+  de_duper = Superdeduper.new(ARGV)
+  de_duper.perform
+
 end
 

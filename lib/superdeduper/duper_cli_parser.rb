@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'optparse'
 
 module Superdeduper
 
+  # Encapsulates Ruby's OptionParser for this specific application
   class DuperCliParser
-    attr_reader :options
 
     def initialize(args = nil)
       defaults
@@ -15,29 +17,50 @@ module Superdeduper
       option_parser = OptionParser.new do |opts|
         opts.banner = 'List image duplicates. Usage: superdeduper [options]'
         opts.on('-d DIRECTORY', '--directory=DIRECTORY', 'Root of folders to be traversed') do |dir|
-          raise OptionParser::InvalidArgument, "DIRECTORY [#{dir}] does not exist, current director [#{Dir.pwd}]" unless Dir.exist?(dir.strip)
+          unless Dir.exist?(dir.strip)
+            raise OptionParser::InvalidArgument, [additional: "DIRECTORY [#{dir}] does not exist, current director [#{Dir.pwd}]"]
+          end
 
           @options[:directory] = dir
         end
-        opts.on('-f FILTER', '--filter=FILTER', "File extension filter use:'*.<extension>' example:'-f *.jpeg'") do |filter|
-          if filter.start_with? == '*.' && !filter[2..-1].match?(/[[:punct:]]|\s/)
-            raise OptionParser::InvalidArgument, "FILTER [#{filter}] has non alpha numeric content"
+        opts.on('-f', '--filter=FILTER', "File extension filter use:'*.<ext>' example:'-f*.jpeg'") do |f|
+          unless f.to_s.start_with?('*.')
+            raise OptionParser::InvalidArgument, [additional: "FILTER [#{f}] has incorrect prefix"]
           end
 
-          @options[:filter] = filter
+          if f.to_s[2..-1].match?(/[[:punct:]]/)
+            unless f.to_s.start_with?('*.*')
+              raise OptionParser::InvalidArgument, [additional: "FILTER [#{f}] has punctuation"]
+            end
+          end
+          if f.to_s[2..-1].match?(/[[:cntrl:]]/)
+            raise OptionParser::InvalidArgument, [additional: "FILTER [#{f}] has control characters"]
+          end
+
+          @options[:filter] = f.to_s
         end
         opts.on('-h', '--help', 'Prints this help') do
           puts opts
-          # exit
+          exit
         end
       end
       begin
         option_parser.parse!(args) if args
-      rescue OptionParser::ParseError => e # Catches all child exception types and wraps in it's exception
-        puts option_parser
+      rescue OptionParser::InvalidOption, OptionParser::InvalidArgument => e # Catches all child exception types and wraps in it's exception
+        puts "Please Check Options #{option_parser} "
+        puts e.to_s
+        puts e.message
         raise CliParsingError.new(e.to_s, e.reason)
       end
 
+    end
+
+    def options
+      @options.inspect
+    end
+
+    def option(option = nil)
+      @options[option.to_sym] if option
     end
 
     private
@@ -51,11 +74,11 @@ module Superdeduper
   end
 
   class CliParsingError < StandardError
-    attr_reader :action
+    attr_reader :extra
 
-    def initialize(msg = 'This is a CLI parsing error', action)
+    def initialize(msg = 'This is a CLI parsing error', extra = nil)
       super(msg)
-      @action = action
+      @extra = extra
     end
   end
 end

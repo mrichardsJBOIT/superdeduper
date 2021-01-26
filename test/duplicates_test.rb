@@ -2,10 +2,6 @@ require "test_helper"
 
 class DuplicatesTest < Minitest::Test
 
-  def test_performing_positve
-    skip "Not done yet..."
-    assert(@deduper.perform.start_with?('performing'), "We are performing")
-  end
 
   def test_image_fixtures_are_duplicates
     puts "Getting files from #{Dir.pwd}"
