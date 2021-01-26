@@ -1,1 +1,5 @@
-{% include_relative rational.md %}
+{% include_relative rationale.md %}
+
+---
+
+{% include_relative design_options.md %}

@@ -17,7 +17,7 @@ describe 'Command' do
     it 'does not display unique files' do
       out_stuff = all_stdout
       _(out_stuff).wont_include 'very_small_blue_dot.jpeg'
-      _(out_stuff).wont_include 'some_non_image_file.txt'
+      _(out_stuff).wont_include 'some_other_non_image_file.txt'
     end
   end
 
@@ -53,11 +53,32 @@ describe 'Command' do
       _(out_stuff).must_include 'very_small_black_dot.jpeg'
     end
 
-    let(:args) { '-d ./fixtures -f .txt' }
-    it 'does not display filtered files' do
+    let(:args) { '-d ./fixtures -f .*' }
+    it 'does not display unique files' do
       out_stuff = all_stdout
-      _(out_stuff).wont_include 'very_small_black_dot_exact_copy.jpeg'
-      _(out_stuff).wont_include 'very_small_black_dot.jpeg'
+      _(out_stuff).wont_include 'some_other_non_image_file.txt'
+      _(out_stuff).wont_include 'very_small_blue_dot.jpeg'
+    end
+  end
+
+
+  describe 'when passed a compressed file' do
+    let(:args) { '-z images.zip' }
+    before do
+      # setup_aruba
+      # run_command("superdeduper #{args}")
+    end
+    it 'displays all duplicate files' do
+      # out_stuff = all_stdout
+      # _(out_stuff).must_include 'very_small_black_dot_exact_copy.jpeg'
+      # _(out_stuff).must_include 'very_small_black_dot.jpeg'
+    end
+
+    let(:args) { '-d ./fixtures -f .*' }
+    it 'does not display unique files' do
+      # out_stuff = all_stdout
+      # _(out_stuff).wont_include 'some_other_non_image_file.txt'
+      # _(out_stuff).wont_include 'very_small_blue_dot.jpeg'
     end
   end
 end

@@ -19,4 +19,12 @@ describe 'PhotoCollectionDeduper' do
       # Do nothing
     end
   end
+
+  describe 'deduping a unique collection ' do
+
+    it 'should not display any images' do
+
+    end
+
+  end
 end

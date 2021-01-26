@@ -15,7 +15,9 @@ module Superdeduper
     end
 
     def perform
-      "performing at #{Time.now.inspect}"
+      # Get options passed in
+      # Collect all files in target
+      puts "performing at #{Time.now.inspect}"
       begin
         @cli_parser.parse
       rescue CliParsingError => e
