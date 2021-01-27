@@ -27,6 +27,7 @@
 * Algorithm
   * Content comparison
     * Iterating over each file checking byte by byte, moving or marking duplicates for single consideration
+      * Fortunately we can get this type of behaviour by using a 'group by' function on an enumerable collection...  
     * Crashed Digests
       * As each file is read, create a hashed signature of the file and store in a collection using signature as the key
       * Duplicates (potential at least) will crash on insert
