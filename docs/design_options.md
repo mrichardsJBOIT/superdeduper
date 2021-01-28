@@ -47,7 +47,7 @@
 | ---  | ---     | --- |
 | Language  | * Ruby      | Use the challenge as an opportunity to upskill and learn. |
 | Packaging | Gem       | Mature and well supported package management.  Simpler than Maven for Java.  |
-| Patterns  | <li>Command</li><li>Facade or Singleton</li><li>Iterator</li> | <li>Asynchronous processing of large collections</li><li>Simple interface to complex operations.  Singleton likely to impact multi-instance processing for </li><li>Encapsulate traversing file and internal collections</li>  |
+| Patterns  | <ul> <li> Command</li> <li>Facade or Singleton</li><li>Iterator</li> </ul>  | <ul> <li> Asynchronous processing of large collections</li><li>Simple interface to complex operations.  Singleton likely to impact multi-instance processing for </li><li>Encapsulate traversing file and internal collections</li> </ul>   |
 | Content comparison | Byte by byte  | Go for the simple solution first...  |
 
 
