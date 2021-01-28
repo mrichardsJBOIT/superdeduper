@@ -41,6 +41,7 @@
   * ...where to stop....
 
 ## Choices
+
 | Component | Option(s) | Comments |  
 | --------  | -----     | --------- |
 | Language  | Ruby      | Use the challenge as an opportunity to upskill and learn. |
